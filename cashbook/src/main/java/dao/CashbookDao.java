@@ -69,7 +69,7 @@ public class CashbookDao {
       return list;
    }
    
-   public void insertByDay(int y, int m, int d, int cash, String memo, String kind) throws Exception {
+   public void insertByDay(int y, int m, int d, int cash, String memo, String kind) {
 	   
 	   /* SQL±¸¹®
 	    INSERT INTO cashbook
@@ -100,19 +100,30 @@ public class CashbookDao {
 	   		+ "			NOW() "
 	   		+ "		)";
 	   
+	   try {
 	   Class.forName("org.mariadb.jdbc.Driver");
 	   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
 	   
 	   stmt = conn.prepareStatement(sql);
-	   System.out.println(kind + "------------kind");
-	   System.out.println(memo + "------------memo");
-	   System.out.println(cash + "------------cash");
-	   System.out.println(day + "------------day");
 	   stmt.setString(1, kind);
 	   stmt.setString(2, memo);
 	   stmt.setInt(3, cash);
 	   stmt.setString(4, day);
+	   
 	   int row = stmt.executeUpdate();
 	   
+	   } catch (Exception e) {
+			e.printStackTrace();
+	   } finally {
+	         try {
+	             rs.close();
+	             stmt.close();
+	             conn.close();
+	          } catch (SQLException e) {
+	             e.printStackTrace();
+	          }
+	   
+	   
+	   }
    }
 }
