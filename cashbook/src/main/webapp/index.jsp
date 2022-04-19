@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="jumbotron text-center" style="margin-bottom:0">
-	  <h1>SAKILA DB</h1>
+	  <h1>°¡°èºÎ</h1>
 	</div>
 
 	<br>
