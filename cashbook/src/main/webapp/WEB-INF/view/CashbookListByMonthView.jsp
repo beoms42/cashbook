@@ -39,15 +39,6 @@
         int endDay = (Integer)request.getAttribute("endDay");
         int totalTd = (Integer)request.getAttribute("totalTd");
 
-        // 디버깅
-        System.out.println(list.size() + "list.size() CsahBookListByMonth.jsp");
-        System.out.println(y + "y CsahBookListByMonth.jsp");
-        System.out.println(m + "m CsahBookListByMonth.jsp");
-        System.out.println(today + "today CsahBookListByMonth.jsp");
-        System.out.println(startBlank + "startBlank CsahBookListByMonth.jsp");
-        System.out.println(endBlank + "endBlank CsahBookListByMonth.jsp");
-        System.out.println(endDay + "endDay CsahBookListByMonth.jsp");
-        System.out.println(totalTd + "totalTd CsahBookListByMonth.jsp");
 
     %>
     <h2><%=y %>년<%=m %>월</h2>

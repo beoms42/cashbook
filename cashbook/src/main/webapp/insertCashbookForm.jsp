@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR"%>
 <%
-	
+	 
 	int[] today = (int[])request.getAttribute("today"); // 0번 year, 1번 month, 2번 day
 	String temp_month = "";
 	String temp_day = "";
@@ -10,9 +10,12 @@
 	
 	if(today[2] < 10) {
 		temp_day = "0" + today[2];
+	} else {
+		temp_day = "" + today[2];
 	}
 	String today_s = today[0] +"-"+ temp_month +"-"+  temp_day;
 	
+	System.out.println(today_s+"=============today=========");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,7 +60,7 @@
 		  
 		  price :<input type="number" name="cash"> 
 		  <hr>
-		  메모 : <input type="text" name="memo"> 
+		  메모 : <textarea rows="4" cols="50" type="text" name="memo"> </textarea>
 		  <button type="submit">제출</button>
 	  </form>
 	  <!--  grid 5영역의 끝 div -->

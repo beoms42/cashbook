@@ -39,8 +39,6 @@ public class CashbookListByMonthController extends HttpServlet {
          y = y+1;
       }
       
-      System.out.println(y+" <-- y");
-      System.out.println(m+" <-- m");
       
       /*
        
@@ -56,7 +54,7 @@ public class CashbookListByMonthController extends HttpServlet {
       Calendar firstDay = Calendar.getInstance(); // ex) 2022.04.19
       firstDay.set(Calendar.YEAR, y);
       firstDay.set(Calendar.MONTH, m-1); // 자바 달력API는 1월을 0으로, 2월을 1로, ... 12월을 11로 설정되어있음
-      firstDay.set(Calendar.DATE, 1); // ex) 2022.04.01
+      firstDay.set(Calendar.DATE, 1); // ex) 2022.04.01	
       int dayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
       // dayOfWeek    일1, 월2, ... 토7
       // startBlank    일0, 월1, ... 토6
@@ -90,7 +88,7 @@ public class CashbookListByMonthController extends HttpServlet {
       request.setAttribute("list", list);
       request.setAttribute("y", y);
       request.setAttribute("m", m);
-      
+       
       request.setAttribute("today", today);
       // 3) 뷰 포워딩
       request.getRequestDispatcher("/WEB-INF/view/CashbookListByMonthView.jsp").forward(request, response);
