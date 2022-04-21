@@ -99,7 +99,7 @@ public class HashtagDao {
 			c.cash_date
 			FROM hashtag h INNER JOIN cashbook c
 			ON h.cashbook_no = c.cashbook_no) t
-			WHERE tag = 'ÇÐ¿øºñ' AND cash_date BETWEEN '' AND '2022-01-30'
+			WHERE kind LIKE '%%' AND cash_date BETWEEN '' AND '2022-01-30'
 			GROUP BY kind, tag;
 		 * */
 		Connection conn = null;
@@ -113,13 +113,13 @@ public class HashtagDao {
         		+ "			c.cash_date"
         		+ "			FROM hashtag h INNER JOIN cashbook c"
         		+ "			ON h.cashbook_no = c.cashbook_no) t"
-        		+ "			WHERE kind = ? AND cash_date BETWEEN ? AND ?"
+        		+ "			WHERE kind LIKE ? AND cash_date BETWEEN ? AND ?"
         		+ "			GROUP BY kind, tag;";
 	      
         Class.forName("org.mariadb.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
         stmt = conn.prepareStatement(sql);
-        stmt.setString(1, kind);
+        stmt.setString(1, "%"+kind+"%");
         stmt.setString(2, beginDate);
         stmt.setString(3, endDate);
 		rs= stmt.executeQuery();

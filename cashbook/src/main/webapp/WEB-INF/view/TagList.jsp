@@ -42,6 +42,7 @@
 		<form method="post" action="<%=request.getContextPath()%>/TagSearchController">
          <div class="float-right">
             <select class="text-center" name="kind">
+            	<option value="">선택</option>
                <option value="수입">수입</option>
                <option value="지출">지출</option>
             </select>
