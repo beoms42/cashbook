@@ -58,7 +58,6 @@ public class CashbookDao {
          }
       } catch (Exception e) {
          e.printStackTrace();
-         System.out.println("asdasdsdsadsa");
       } finally {
          try {
             rs.close();
@@ -66,14 +65,12 @@ public class CashbookDao {
             conn.close();
          } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("2323232323");
          }
       }
       return list;
    }
    
    public void insertByDay(int y, int m, int d, int cash, String memo, String kind, List<String> hashtag) {
-	   System.out.println("dao시작");
 	   /* SQL구문
 	    INSERT INTO cashbook
 		VALUES (
@@ -99,9 +96,7 @@ public class CashbookDao {
 	   Class.forName("org.mariadb.jdbc.Driver");
 	   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
 	   conn.setAutoCommit(false);
-	   System.out.println("제네레이트 밑시작");
 	   stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS); // INSERT + SELECT 방금 생성된 키값 반환
-	   System.out.println("제네레이트 끝");
 	   // ex) 방금 select 입력한 cashbook_no from cashbook 실행하면 
 	   stmt.setString(1, kind);
 	   stmt.setString(2, memo);
@@ -115,7 +110,6 @@ public class CashbookDao {
 	   
 	   if(rs.next()) {
 		   cashbookNo = rs.getInt(1);
-		   System.out.println(cashbookNo+"<---------- 캐시북넘버");
 	   }
 	   
 	   for(String g : hashtag) {
@@ -155,4 +149,186 @@ public class CashbookDao {
 	   }
    }
    
+   public Cashbook selectCashbookOne(int cashbookNo) {
+	   
+	   Cashbook cb = new Cashbook();
+	   Connection conn = null;
+	   PreparedStatement stmt = null;
+	   ResultSet rs = null;
+	   
+	   String sql = "SELECT * "
+	   		+ " FROM cashbook "
+	   		+ " WHERE cashbook_no =  ? ";
+	   
+	   try {
+	   Class.forName("org.mariadb.jdbc.Driver");
+	   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
+	   stmt = conn.prepareStatement(sql);
+	   stmt.setInt(1, cashbookNo);
+
+	   
+	   rs = stmt.executeQuery();
+	   while(rs.next()) {
+		   cb.setCashbookNo(cashbookNo);
+		   cb.setKind(rs.getString("kind"));
+		   cb.setMemo(rs.getString("memo"));
+		   cb.setCash(rs.getInt("cash"));
+		      
+	    }
+	   }
+	   catch (Exception e) {
+		// TODO: handle exception
+	   } finally {
+	         try {
+	        	 
+	             rs.close();
+	             stmt.close();
+	             conn.close();
+	          } catch (SQLException e) {
+	             e.printStackTrace();
+	          }
+	   
+	         
+	   }
+	   return cb;
+   }
+   
+   public void deleteCashbookOne(int cashbookNo) {
+	   
+	   Cashbook cb = new Cashbook();
+	   Connection conn = null;
+	   PreparedStatement stmt = null;
+	   ResultSet rs = null;
+	   
+	   String sql2 =  "DELETE FROM hashtag "
+		   		+ " WHERE cashbook_no = ? ";
+	   
+	   String sql = "DELETE FROM cashbook "
+	   		+ " WHERE cashbook_no = ? ";
+	   
+	   try {
+	   Class.forName("org.mariadb.jdbc.Driver");
+	   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
+	   conn.setAutoCommit(false);
+	   PreparedStatement stmt2 = null;
+	   
+	   stmt2 = conn.prepareStatement(sql2);
+	   stmt2.setInt(1, cashbookNo);
+	   stmt = conn.prepareStatement(sql);
+	   stmt.setInt(1, cashbookNo);
+
+	   
+	   rs = stmt2.executeQuery();
+	   
+	   rs = stmt.executeQuery();
+
+	   conn.commit();
+	   }
+	   
+	   catch (Exception e) {
+		// TODO: handle exception
+		   try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	   } finally {
+	         try {
+	        	 
+	             rs.close();
+	             stmt.close();
+	             conn.close();
+	          } catch (SQLException e) {
+	             e.printStackTrace();
+	          }
+	   
+	         
+	   }
+   }
+   
+   public void updateCashbookOne(int cashbookNo, int cash, String kind, String memo, List<String> hashtag) {
+	   
+	   Cashbook cb = new Cashbook();
+	   Connection conn = null;
+	   
+	   
+	   System.out.println(cashbookNo+"<----------------cashbookNo");
+	   System.out.println(cash+"<----------------cash");
+	   System.out.println(kind+"<----------------kind");
+	   System.out.println(memo+"<----------------memo");
+	   System.out.println(hashtag+"<----------------hashtag");
+	   /*
+	    * 
+	    * 1) 해시태그 삭제(델리트에서 썼던 로직 사용)
+	    * 2) 내용 업데이트 하고
+	    * 3) 해시태그 로직 갔다 쓰면 될듯?
+	    */
+	   //   * 1) 해시태그 삭제(델리트에서 썼던 로직 사용)
+	   String sqlDel =  "DELETE FROM hashtag "
+		   		+ " WHERE cashbook_no = ? ";
+	   
+	   // 2) 내용 업데이트 하고
+	   String sqlUp = "UPDATE cashbook"
+	   		+ " SET cash = ?, kind = ?, memo = ?, update_date = now()"
+	   		+ " WHERE cashbook_no = ?";
+	   
+//	   // * 3) 해시태그 로직 갔다 쓰면 될듯?
+	   String sql3 = "INSERT INTO hashtag(cashbook_no, tag, create_date)"
+			   +" VALUES(?, ?, NOW())";
+	   
+	   try {
+	   Class.forName("org.mariadb.jdbc.Driver");
+	   conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
+	   conn.setAutoCommit(false);
+	   
+	   PreparedStatement tagDelstmt = conn.prepareStatement(sqlDel);
+	   PreparedStatement updateStmt = conn.prepareStatement(sqlUp);
+	   
+	   tagDelstmt.setInt(1, cashbookNo);
+	   
+	   updateStmt.setInt(1, cash);
+	   updateStmt.setString(2, kind);
+	   updateStmt.setString(3, memo);
+	   updateStmt.setInt(4, cashbookNo);
+	   
+	   System.out.println("====================2===========");
+	   tagDelstmt.executeUpdate();
+	   updateStmt.executeUpdate();
+
+	   System.out.println("====================3===========");
+	   for(String g : hashtag) {
+		   PreparedStatement stmt3 = null;
+		  
+		   stmt3 = conn.prepareStatement(sql3);
+		   stmt3.setInt(1, cashbookNo);
+		   stmt3.setString(2, g);
+		   System.out.println("====================4===========");
+		   
+		   stmt3.executeUpdate();
+	   }
+	   
+	   conn.commit();
+	   }
+	   
+	   catch (Exception e) {
+		// TODO: handle exception
+		   try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	   } finally {
+	         try {
+	        	
+	             conn.close();
+	          } catch (SQLException e) {
+	             e.printStackTrace();
+	          }
+	   
+	         
+	   }
+   }
+		   
 }

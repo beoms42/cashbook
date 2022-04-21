@@ -2,6 +2,6 @@
     pageEncoding="EUC-KR"%>
     	   
 		<ol>
-			<li>list</li>
+			<li><a href="<%=request.getContextPath()%>/CashbookListByMonthController">가계부 메인페이지</a></li>
 		</ol>
 		

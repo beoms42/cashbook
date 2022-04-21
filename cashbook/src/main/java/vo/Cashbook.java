@@ -2,6 +2,8 @@ package vo;
 
 public class Cashbook {
 	private int cashbookNo;
+	private int cash;
+	
 	private String cashDate;
 	private String kind;
 	private String memo;
@@ -14,11 +16,21 @@ public class Cashbook {
 	
 	@Override
 	public String toString() {
-		return "cashbook [cashbookNo=" + cashbookNo + ", cashDate=" + cashDate + ", kind=" + kind + ", memo=" + memo
-				+ ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
+		return "Cashbook [cashbookNo=" + cashbookNo + ", cash=" + cash + ", cashDate=" + cashDate + ", kind=" + kind
+				+ ", memo=" + memo + ", updateDate=" + updateDate + ", createDate=" + createDate + "]";
 	}
 	
 	//------------------------------------------ get set
+	public int getCash() {
+		return cash;
+	}
+
+	
+
+	public void setCash(int cash) {
+		this.cash = cash;
+	}
+	
 	public int getCashbookNo() {
 		return cashbookNo;
 	}

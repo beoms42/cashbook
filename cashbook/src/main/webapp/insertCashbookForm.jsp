@@ -15,7 +15,6 @@
 	}
 	String today_s = today[0] +"-"+ temp_month +"-"+  temp_day;
 	
-	System.out.println(today_s+"=============today=========");
 %>
 <!DOCTYPE html>
 <html>
