@@ -79,7 +79,6 @@ public class HashtagDao {
 			map.put("kind", rs.getString("c.kind"));
 			map.put("memo", rs.getString("c.memo"));
 			map.put("cash", rs.getInt("c.cash"));
-			
 			list.add(map);
 		}
 		
