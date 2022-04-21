@@ -37,7 +37,7 @@
 		
 		<h1>tag rank</h1>
 		
-		<table border="1">
+		<table class="table">
 			<tr>
 				<th>tag</th>
 				<th>cashbookNo</th>

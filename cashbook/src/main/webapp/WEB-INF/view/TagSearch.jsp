@@ -32,7 +32,7 @@
 		<% 
 			List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute("list");
 		%>
-		<table border="1">
+		<table class="table">
 			<tr>
 				<th>kind</th>
 				<th>cashDate</th>
