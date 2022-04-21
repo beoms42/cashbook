@@ -41,6 +41,10 @@
 
 
     %>
+    
+    <div>
+    	<a href= "<%=request.getContextPath()%>/TagController">태그랭킹</a>
+    </div>
     <h2><%=y %>년<%=m %>월</h2>
 
     <div>

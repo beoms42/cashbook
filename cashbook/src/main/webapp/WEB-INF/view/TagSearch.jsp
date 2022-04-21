@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import = "java.util.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,30 @@
 	  </div>
 	  
 	  <div class="col-sm-5 container">
-
+		<h1>tag rank</h1>
+		<% 
+			List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute("list");
+		%>
+		<table border="1">
+			<tr>
+				<th>kind</th>
+				<th>cashDate</th>
+				<th>tag</th>
+			</tr>
+			
+			<%
+				for(Map<String, Object> map : list) {
+			%>
+				<tr>
+					<td><%=map.get("kind") %></td>
+					<td><%=map.get("cashDate") %></td>
+					<td><%=map.get("tag") %></td>
+					
+				</tr>
+			<%
+				}
+			%>
+		</table>
 	  </div>
 	  
 	  <div class="col-sm-4 container">
