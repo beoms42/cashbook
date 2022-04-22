@@ -26,9 +26,10 @@
 	  <div class="container col-sm-1">
 	  </div>
 	  
-	  <div class="col-sm-5 container">		
-			
-			<form action="<%=request.getContextPath()%>/LoginController" method="post">
+	  <div class="col-sm-5 container">
+					
+
+			<form action="<%=request.getContextPath()%>/InsertMemberController" method="post">
 				<table class="table">	
 					<tr>
 						<td>memberId :</td> 
@@ -40,10 +41,7 @@
 						<td><input type="password" name="memberPw"></td>
 					</tr>
 				</table>
-			<button type="submit" class="button">전송</button> 
-			<div>
-			아이디가 없으신가요? <a href="<%=request.getContextPath()%>/InsertMemberController">회원가입</a>
-			</div>
+			<button type="submit" class="button">회원가입</button> 
 			</form>
 	  </div>
 	  

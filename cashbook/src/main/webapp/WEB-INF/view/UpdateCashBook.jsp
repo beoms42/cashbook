@@ -37,7 +37,10 @@
 	  </div>
 	  
 	  <div class="col-sm-5 container">
-		
+		<div>
+	    	<%= session.getAttribute("sessionMemberId")%>님 반갑습니다.
+	    	<a href="<%=request.getContextPath()%>/LogoutController">로그아웃</a>
+   		</div>
 	 	<form action="UpdateCashbookController" method="post">
 	 	<table>
 	 		<tr>

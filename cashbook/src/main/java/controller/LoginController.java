@@ -23,7 +23,18 @@ public class LoginController extends HttpServlet {
 	
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
+
+		if(sessionMemberId != null) {
+			// 이미 로그인이 되어 있는 상태라면
+			response.sendRedirect(request.getContextPath()+"/CashBookListByMonthController");
+			return;
+		}
+		// 로그인 되어있는 멤버라면 리다이렉트
 		request.getRequestDispatcher("/WEB-INF/view/Login.jsp").forward(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +59,7 @@ public class LoginController extends HttpServlet {
 		} 
 		// 현재 연결한 client(browser)의 세션값을 받아을 받아서 httpsession 객체를 만들어 저장
 			HttpSession session = request.getSession();
-			session.setAttribute("sessionMemberId", session);
+			session.setAttribute("sessionMemberId", sessionMemberId);
 			response.sendRedirect(request.getContextPath()+"/CashbookListByMonthController");
 		 
 			

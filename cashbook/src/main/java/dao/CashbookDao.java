@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import util.DBUtil;
 import vo.Cashbook;
 
@@ -70,7 +72,7 @@ public class CashbookDao {
       return list;
    }
    
-   public void insertByDay(int y, int m, int d, int cash, String memo, String kind, List<String> hashtag) {
+   public void insertByDay(int y, int m, int d, int cash, String memo, String kind, List<String> hashtag, String sessionMemId) {
 	   /* SQL구문
 	    INSERT INTO cashbook
 		VALUES (
@@ -89,8 +91,8 @@ public class CashbookDao {
 	   PreparedStatement stmt = null;
 	   ResultSet rs = null;
 	   
-	   String sql = "INSERT INTO cashbook(kind, memo ,cash ,cash_date,update_date,create_date)"
-				+ " VALUES(?,?,?,?,NOW(),NOW())";
+	   String sql = "INSERT INTO cashbook(kind, memo ,cash ,cash_date,update_date,create_date, member_id)"
+				+ " VALUES(?,?,?,?,NOW(),NOW(),?)";
 	   
 	   try {
 	   Class.forName("org.mariadb.jdbc.Driver");
@@ -102,6 +104,8 @@ public class CashbookDao {
 	   stmt.setString(2, memo);
 	   stmt.setInt(3, cash);
 	   stmt.setString(4, day);
+	   stmt.setString(5, sessionMemId);
+	   
 	   
 	   stmt.executeUpdate();
 	   rs = stmt.getGeneratedKeys(); // 방금 select 입력한 cashbook no from cashbook
@@ -114,8 +118,8 @@ public class CashbookDao {
 	   
 	   for(String g : hashtag) {
 		   PreparedStatement stmt2 = null;
-		   String sql2 = "INSERT INTO hashtag(cashbook_no, tag, create_date)"
-				   +" VALUES(?, ?, NOW())";
+		   String sql2 = "INSERT INTO hashtag(cashbook_no, tag)"
+				   +" VALUES(?, ?)";
 		   stmt2 = conn.prepareStatement(sql2);
 		   stmt2.setInt(1, cashbookNo);
 		   stmt2.setString(2, g);

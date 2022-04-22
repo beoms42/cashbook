@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CashbookDao;
 import vo.Cashbook;
@@ -41,6 +42,8 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 		int cash = Integer.parseInt(request.getParameter("cash"));
 		String kind = request.getParameter("kind");
 		String memo = request.getParameter("memo"); 
+		HttpSession session = request.getSession();
+		String sessionMemberId = (String)session.getAttribute("sessionMemberId");
 		
 		CashbookDao cd = new CashbookDao();
 		
@@ -60,7 +63,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			}
 		}
 		
-			cd.insertByDay(y, m, d, cash, memo, kind, hashtag);
+			cd.insertByDay(y, m, d, cash, memo, kind, hashtag, sessionMemberId);
 			
 			
 		response.sendRedirect(request.getContextPath()+"/CashbookListByMonthController");

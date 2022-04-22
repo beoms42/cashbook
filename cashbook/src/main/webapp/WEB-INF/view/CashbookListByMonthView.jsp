@@ -43,7 +43,7 @@
     %>
     <div>
     	<%= session.getAttribute("sessionMemberId")%>님 반갑습니다.
-    	<a href="<%=request.getContextPath()%>/LoginController">로그아웃</a>
+    	<a href="<%=request.getContextPath()%>/LogoutController">로그아웃</a>
     </div>
     
     <div>

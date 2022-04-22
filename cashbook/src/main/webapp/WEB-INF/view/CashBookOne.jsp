@@ -35,7 +35,10 @@
 	  </div>
 	  
 	  <div class="col-sm-5 container">
-		
+		<div>
+	    	<%= session.getAttribute("sessionMemberId")%>´Ô ¹Ý°©½À´Ï´Ù.
+	    	<a href="<%=request.getContextPath()%>/LogoutController">·Î±×¾Æ¿ô</a>
+	    </div>
 	 	
 	 	<table>
 	 		<tr>

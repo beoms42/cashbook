@@ -20,7 +20,27 @@ public class MemberDao {
 	 * 정보
 	 * 
 	 */
+	// 가입
 	
+	public int insertRegister(String memberId, String memberPw) throws Exception {
+		
+		Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        String sql = "INSERT INTO member (member_id, member_pw, create_date)"
+        		+ " VALUES(?, PASSWORD(?), NOW());";
+	      
+        Class.forName("org.mariadb.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/cashbook","root","java1234");
+        stmt = conn.prepareStatement(sql);
+		stmt.setString(1, memberId);
+		stmt.setString(2, memberPw);
+		int row  = stmt.executeUpdate();
+		
+		conn.close();
+		stmt.close();
+		return row;
+	}
 	
 	public String selectMemberByIdPw(Member member) throws Exception {
 		
@@ -42,6 +62,9 @@ public class MemberDao {
 		memberId = rs.getString("memberId");
 		}
 		
+		conn.close();
+		stmt.close();
+		rs.close();
 		return memberId;
 	}
 }

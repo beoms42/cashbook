@@ -39,6 +39,10 @@
 	  
 	  <div class="col-sm-5 container">
 	  <!--  grid 5의 시작  -->
+	  	<div>
+	    	<%= session.getAttribute("sessionMemberId")%>님 반갑습니다.
+	    	<a href="<%=request.getContextPath()%>/LogoutController">로그아웃</a>
+    	</div>
 		<form method="post" action="<%=request.getContextPath()%>/TagSearchController">
          <div class="float-right">
             <select class="text-center" name="kind">
