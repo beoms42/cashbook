@@ -41,6 +41,10 @@
 
 
     %>
+    <div>
+    	<%= session.getAttribute("sessionMemberId")%>님 반갑습니다.
+    	<a href="<%=request.getContextPath()%>/LoginController">로그아웃</a>
+    </div>
     
     <div>
     	<a href= "<%=request.getContextPath()%>/TagController">태그랭킹</a>
